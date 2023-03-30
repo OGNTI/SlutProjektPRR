@@ -1,6 +1,6 @@
 ask for name and age of character in one string userInput.
 divide input into string name and int age. 
-ask where player would want to start their adventure      city/town/forest/mountains etc.
+ask where player would want to start their adventure      forest/mountains etc.
 
 turnbased, have inventory, hunger/thirst, 
 stamina used to control amount of actions per turn?
