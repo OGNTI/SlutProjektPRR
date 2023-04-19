@@ -12,7 +12,7 @@ string subAction = "";
 
 Console.WriteLine("What is the name and age of your character? (e.g. [Steve 30])");
 
-bool questionAnswered = false;
+bool questionAnswered = false;  //only allow user to continue when question is properly answered
 while (!questionAnswered)
 {
     string userInput = Console.ReadLine();  //get input
@@ -32,7 +32,7 @@ while (!questionAnswered)
         int pTo = refinedInput.LastIndexOf(""); //get whole string length
 
         name = refinedInput.Substring(0, pFrom); //get text in position 0 with length pFrom
-        string unrefinedAge = refinedInput.Substring(pFrom, pTo - pFrom); //get text in position pFrom with length pTo-pFrom
+        string unrefinedAge = refinedInput.Substring(pFrom, pTo - pFrom); //get text in position pFrom with length pTo - pFrom
         bool conversionSuccess1 = false;
         conversionSuccess1 = int.TryParse(unrefinedAge, out age); //check if userInput was input in instructed way
 
@@ -40,16 +40,16 @@ while (!questionAnswered)
         bool conversionSuccess2 = false;
         conversionSuccess2 = int.TryParse(numbersOnly, out age);
 
-        if (!conversionSuccess2)
+        if (!conversionSuccess2)    //had no numbers
         {
             Console.WriteLine("You did not enter age as a number. \nTry again.");
         }
-        else if (conversionSuccess2 && !conversionSuccess1)
+        else if (conversionSuccess2 && !conversionSuccess1) //had mixed numbers and letters 
         {
             Console.WriteLine("You did not enter age in the correct way but I got numbers so fuck you, I'm using it.");
             questionAnswered = true;
         }
-        else if (conversionSuccess2)
+        else if (conversionSuccess2)   
         {
             questionAnswered = true;
         }
@@ -98,7 +98,7 @@ while (gaming)
             Console.WriteLine("Inventory:");
             foreach (string item in inventory)
             {
-                Console.WriteLine("-" + item);
+                Console.WriteLine("-" + item);  //display a "-" infront of all items in inventory
             }
         }
     }
@@ -124,7 +124,7 @@ static string LocationChoice()
         Console.WriteLine("");
 
         bool conversionSuccess = false;
-        conversionSuccess = int.TryParse(userInput, out int answer); //did the user follow the instructions
+        conversionSuccess = int.TryParse(userInput, out int answer); //did the user follow the instructions and type a number
 
         if (conversionSuccess)
         {
@@ -167,27 +167,27 @@ static string LocationChoice()
 
             string refinedInput = userInput.ToLower();
 
-            bool hasForest = refinedInput.Contains("forest");
+            bool hasForest = refinedInput.Contains("forest");   //did user type the choices with letters
             bool hasBeach = refinedInput.Contains("beach");
             bool hasSwamp = refinedInput.Contains("swamp");
 
-            if (hasForest && hasBeach && hasSwamp)
+            if (hasForest && hasBeach && hasSwamp)  //did the user try choosing all options
             {
                 Console.WriteLine("You can not answer with all options you dumb fuck. \nTry again.");
             }
-            else if (hasForest && hasBeach)
+            else if (hasForest && hasBeach) //did the user try choosing multiple options
             {
                 Console.WriteLine("You can not answer with multiple options you dumb fuck. \nTry again.");
             }
-            else if (hasForest && hasSwamp)
+            else if (hasForest && hasSwamp) //did the user try choosing multiple options
             {
                 Console.WriteLine("You can not answer with multiple options you dumb fuck. \nTry again.");
             }
-            else if (hasBeach && hasSwamp)
+            else if (hasBeach && hasSwamp)  //did the user try choosing multiple options
             {
                 Console.WriteLine("You can not answer with multiple options you dumb fuck. \nTry again.");
             }
-            else if (!hasForest && !hasBeach && !hasSwamp)
+            else if (!hasForest && !hasBeach && !hasSwamp)  
             {
                 Console.WriteLine("That was not an option. \nTry again.");
             }
@@ -196,7 +196,7 @@ static string LocationChoice()
                 Console.WriteLine("You did not answer in the instructed way but that was expected.");
                 Console.Clear();
 
-                if (hasForest)
+                if (hasForest)      
                 {
                     location = "forest";
                     questionAnswered = true;
