@@ -8,17 +8,17 @@ string location = "";
 int turn = 1;
 
 string action = "";
-string doWhat = "";
+string subAction = "";
 
 Console.WriteLine("What is the name and age of your character? (e.g. [Steve 30])");
 
 bool questionAnswered = false;
 while (!questionAnswered)
 {
-    string userInput = Console.ReadLine();
-    string refinedInput = userInput.Trim();
+    string userInput = Console.ReadLine();  //get input
+    string refinedInput = userInput.Trim(); //trim input
 
-    bool hasSpace = refinedInput.Contains(" ");
+    bool hasSpace = refinedInput.Contains(" "); //check if input has space, instructed way of typing contains space
 
     Console.WriteLine("");
 
@@ -28,16 +28,15 @@ while (!questionAnswered)
     }
     else
     {
-        int pFrom = refinedInput.IndexOf(" ") + " ".Length;
-        int pTo = refinedInput.LastIndexOf("");
+        int pFrom = refinedInput.IndexOf(" "); //find the space and get position
+        int pTo = refinedInput.LastIndexOf(""); //get whole string length
 
-        string unrefinedName = refinedInput.Substring(0, pFrom);
-        name = unrefinedName.Trim();
-        string unrefinedAge = refinedInput.Substring(pFrom, pTo - pFrom);
+        name = refinedInput.Substring(0, pFrom); //get text in position 0 with length pFrom
+        string unrefinedAge = refinedInput.Substring(pFrom, pTo - pFrom); //get text in position pFrom with length pTo-pFrom
         bool conversionSuccess1 = false;
-        conversionSuccess1 = int.TryParse(unrefinedAge, out age);
+        conversionSuccess1 = int.TryParse(unrefinedAge, out age); //check if userInput was input in instructed way
 
-        string numbersOnly = Regex.Replace(unrefinedAge, "[^0-9.]", "");
+        string numbersOnly = Regex.Replace(unrefinedAge, "[^0-9.]", ""); //remove any non numbers
         bool conversionSuccess2 = false;
         conversionSuccess2 = int.TryParse(numbersOnly, out age);
 
@@ -70,41 +69,31 @@ List<string> inventory = new List<string>();
 inventory.Add(GetRandomInventory());
 inventory.Add(GetRandomInventory());
 
-Console.WriteLine($"Day {turn} - {location}\n ");
+Console.WriteLine($"Day {turn} - {location} [type \"help\" for help]\n ");
 bool gaming = true;
 while (gaming)
 {
     GetAction();
 
-    if (action == "" && doWhat == "help")
+    if (action == "" && subAction == "help")
     {
-        Console.WriteLine("This is help\n");
-
-
+        Console.WriteLine("Play this game by typing actions like \"Go north\".\nThe following is a list of all available actions.\nCommands:\n -Go (will take 1 day)\n   north\n   south\n   east\n   west\n -Open\n   inventory\n");
     }
     else if (action == "go")
     {
-        int b = generator.Next(1,3);
-        if (doWhat == "north")
+        int b = generator.Next(1, 3);
+        if (subAction == "north" || subAction == "south" || subAction == "east" || subAction == "west") //trick the user into thinking there is a difference which direction you go
         {
-            
+            if (location == "forest")
+            {
+                RandomForestEvent();
+            }
         }
-        if (doWhat == "south")
-        {
 
-        }
-        if (doWhat == "east")
-        {
-
-        }
-        if (doWhat == "west")
-        {
-
-        }
     }
     else if (action == "open")
     {
-        if (doWhat == "inventory")
+        if (subAction == "inventory")
         {
             Console.WriteLine("Inventory:");
             foreach (string item in inventory)
@@ -112,30 +101,12 @@ while (gaming)
                 Console.WriteLine("-" + item);
             }
         }
-    
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -154,7 +125,7 @@ static string LocationChoice()
         Console.WriteLine("");
 
         bool conversionSuccess = false;
-        conversionSuccess = int.TryParse(userInput, out int answer);
+        conversionSuccess = int.TryParse(userInput, out int answer); //did the user follow the instructions
 
         if (conversionSuccess)
         {
@@ -181,7 +152,7 @@ static string LocationChoice()
                 bool has2 = userInput.Contains("2");
                 bool has3 = userInput.Contains("3");
 
-                if (has1 && has2 && has3)
+                if (has1 && has2 && has3) //did the user try choosing all options
                 {
                     Console.WriteLine("You can not answer with all options you dumb fuck. \nTry again.");
                 }
@@ -221,7 +192,7 @@ static string LocationChoice()
             {
                 Console.WriteLine("That was not an option. \nTry again.");
             }
-            else if (hasForest || hasBeach || hasSwamp)
+            else if (hasForest || hasBeach || hasSwamp) //did user write in words instead of numbers
             {
                 Console.WriteLine("You did not answer in the instructed way but that was expected.");
                 Console.Clear();
@@ -248,7 +219,7 @@ static string LocationChoice()
     return location;
 }
 
-static string GetRandomInventory()
+static string GetRandomInventory() //start with random items in inventory
 {
     Random generator = new Random();
     int a = generator.Next(1, 5);
@@ -281,14 +252,13 @@ void GetAction()
     string refinedInput = userInput.Trim();
     Console.WriteLine("");
 
-    int pFrom = refinedInput.IndexOf(" ") + " ".Length;
-    int pTo = refinedInput.LastIndexOf("");
+    int pFrom = refinedInput.IndexOf(" ") + " ".Length; //get position of space and add 1 to it
+    int pTo = refinedInput.LastIndexOf(""); 
     string unrefinedAction = refinedInput.Substring(0, pFrom);
-    string partiallyrefinedAction = unrefinedAction.Trim();
-    action = partiallyrefinedAction.ToLower();
-    string unrefinedDoWhat = refinedInput.Substring(pFrom, pTo - pFrom);
-    string partiallyrefinedDoWHat = unrefinedDoWhat.Trim();
-    doWhat = partiallyrefinedDoWHat.ToLower();
+    string refinedAction = unrefinedAction.Trim();
+    action = refinedAction.ToLower();
+    string unrefinedSubAction = refinedInput.Substring(pFrom, pTo - pFrom);
+    subAction = unrefinedSubAction.ToLower();
 }
 
 static int NextTurn(int previousTurn)
@@ -298,18 +268,26 @@ static int NextTurn(int previousTurn)
     return newTurn;
 }
 
+static void RandomForestEvent()
+{
+    Random generator = new Random();
 
+    int c = generator.Next(1, 4);
 
+    if (c == 1)
+    {
+        Console.WriteLine("You walked and walked for a day and found nothing.");
+    }
+    else if (c == 2)
+    {
+        Console.WriteLine("As you walk around in the woods you find an abandoned cargo container\nWhat do you do?");
+    }
+    else if (c == 3)
+    {
+        Console.WriteLine("");
+    }
 
-
-
-
-
-
-
-
-
-
+}
 
 
 
