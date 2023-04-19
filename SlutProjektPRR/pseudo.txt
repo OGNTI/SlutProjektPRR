@@ -2,10 +2,8 @@ ask for name and age of character in one string userInput.
 divide input into string name and int age. 
 ask where player would want to start their adventure      forest/mountains etc.
 
-turnbased, have inventory, hunger/thirst, 
+turnbased, have inventory, hunger/thirst?, 
 stamina used to control amount of actions per turn?
-few first turns, let player explore starting location and collect items
-after some turns world ends         rise of the machines? extraterestial invasion? nuclear fallout?
 
 let player move to different locations
-actions like, loot, eat/drink, sleep early
+actions like: loot, eat/drink, sleep 
