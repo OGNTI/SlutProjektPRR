@@ -81,7 +81,7 @@ while (gaming)
     }
     else if (action == "go")
     {
-        int b = generator.Next(1, 3);
+
         if (subAction == "north" || subAction == "south" || subAction == "east" || subAction == "west") //trick the user into thinking there is a difference which direction you go
         {
             if (location == "forest")
@@ -262,24 +262,24 @@ void GetAction()
 
 static int NextTurn(int previousTurn)
 {
-    int newTurn = previousTurn + 1;
+    int newTurn = previousTurn + 1;     //increase turn
 
     return newTurn;
 }
 
 void RandomForestEvent()
 {
-    int c = generator.Next(1, 4);
+    int b = generator.Next(1, 4);
 
-    if (c == 1)
+    if (b == 1)
     {
         Console.WriteLine("You walked and walked for a day and found nothing.");
     }
-    else if (c == 2)
+    else if (b == 2)
     {
         Console.WriteLine("As you walk around in the woods you find an abandoned cargo container\nWhat do you do?");
     }
-    else if (c == 3)
+    else if (b == 3)
     {
         Console.WriteLine("event here");
     }
