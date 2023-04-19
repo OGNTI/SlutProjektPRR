@@ -105,7 +105,6 @@ while (gaming)
 
 
 
-
 }
 
 
@@ -268,10 +267,8 @@ static int NextTurn(int previousTurn)
     return newTurn;
 }
 
-static void RandomForestEvent()
+void RandomForestEvent()
 {
-    Random generator = new Random();
-
     int c = generator.Next(1, 4);
 
     if (c == 1)
@@ -284,9 +281,10 @@ static void RandomForestEvent()
     }
     else if (c == 3)
     {
-        Console.WriteLine("");
+        Console.WriteLine("event here");
     }
 
+    NextTurn(turn);
 }
 
 
